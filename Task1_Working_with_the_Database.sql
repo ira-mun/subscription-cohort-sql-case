@@ -96,11 +96,11 @@ WITH monthly_payments AS (
 ),
 -- Get first payment month and order of each payment (2nd query)
 ranked_payments AS (
-	SELECT
-  		subscriber_id,
-  		event_date,
-  		DATE_TRUNC('month', MIN(event_date) OVER (PARTITION BY subscriber_id)) AS cohort_month,
-  		ROW_NUMBER() OVER (PARTITION BY subscriber_id ORDER BY event_date) AS payment_number
+	SELECT 
+	subscriber_id,
+  	event_date,
+  	DATE_TRUNC('month', MIN(event_date) OVER (PARTITION BY subscriber_id)) AS cohort_month,
+  	ROW_NUMBER() OVER (PARTITION BY subscriber_id ORDER BY event_date) AS payment_number
 	FROM monthly_payments
 )
 -- Count how many users from each cohort reached each payment number
